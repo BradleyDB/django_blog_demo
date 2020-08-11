@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Published Posts</h1>
+  {% for blogpost in blogpost_list %}
+    <div class="post container position-relative bordershadow mt-3">
+      <!-- should it be post.title? -->
+      <h1><a href="{% url 'blogpost_detail' pk=blogpost.pk %}" class='stretched-link'>{{ blogpost.title }}</a></h1>
+      <div class="date">
+        <p>Published on: {{ blogpost.published_date|date:"D M Y" }}</p>
+      </div>
+      <a href="{% url 'blogpost_detail' pk=blogpost.pk %}">Comments: {{ blogpost.approve_comment.count }}</a>
+
+    </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="container">
+
+<h1 class='text-center'>Hello There!</h1>
+
+<p class='text-center'>Thank you for visiting my demo site. Here are some of the site features:</p>
+
+  <div class="mx-auto" style="width:600px;">
+
+<ul>
+  <li>Navigation Menu:</li>
+    <ul>
+      <li>Displays dynamic content, and variable depending on if you're logged in or logged out</li>
+      <li>Collapsing to Hamburger Menu for smaller screen views</li>
+      <li>90's Era color changing menu via CSS</li>
+    </ul>
+  <li>Current Posts</li>
+    <ul>
+      <li>View a dynamic list of posts, their publication date and number of comments</li>
+      <li>Hover behavior to select a post container for a detailed view</li>
+    </ul>
+  <li>Detailed Post View/Post Creation</li>
+    <ul>
+      <li>Logged out users able to view posts</li>
+      <li>Logged In users able to:</li>
+        <ul>
+            <li>Edit or delete a post via icon and add comments</li>
+            <li>Delete or approve comments</li>
+        </ul>
+    </ul>
+  <li>Draft Posts</li>
+    <ul>
+      <li>Available to Logged In Users</li>
+      <li>Posts available in list view, or in detail to edit, delete or publish the post</li>
+    </ul>
+  <li>Comments</li>
+    <ul>
+      <li>Available to logged in users</li>
+      <li>Require approval from a logged in user</li>
+    </ul>
+  <li>Text in posts can be highlighted to add links, italics, bolding or different headings</li>
+</ul>
+  </div>
+</div>
+
+{% else %}
+
+<h1 class="text-center mt-5">I'm Sorry Dave, I Can't Do That</h1>
+<p class="text-center mt-5">Please Log In <a class='align-right' href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-lg"></i></a> for more features!</p>
+
+{% endif %}
+
+<p class="text-center mt-5" style="font-size:.75em;">This site was built using Python the Django framework as well as CSS and HTML and Bootstrap.</p>
+
+{% endblock %}

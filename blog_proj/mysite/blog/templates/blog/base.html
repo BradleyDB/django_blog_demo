@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+
+    <!-- latest bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- medium styling -->
+      <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+      <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+
+    <!-- icons -->
+      <script src="https://kit.fontawesome.com/10b59f9cdc.js" crossorigin="anonymous"></script>
+
+    <!-- embedded fonts -->
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- my css -->
+      <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+    <meta charset="utf-8">
+    <title>Blog</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary" id='mynav'>
+      <a class="navbar-brand" href="{% url 'blogpost_list' %}">My Blog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto" >
+          <li class='nav-item active'><a class="nav-link" href="https://github.com/BradleyDB" target='_blank'>Github <i class="fas fa-external-link-alt fa-xs"></i></a></li>
+          <li class='nav-item active'><a class="nav-link" href="{% url 'about' %}">About</a></li>
+        </ul>
+
+        {% if user.is_authenticated %}
+
+          <ul class='navbar-nav ml-md-center'>
+            <li class='nav-item active'><a a class='nav-link navbar-right'>Welcome: {{ user.username }}</a></li>
+          </ul>
+          <ul class='navbar-nav ml-md-auto'>
+            <li class='nav-item active'><a class='nav-link navbar-right' href="{% url 'post_new' %}">New Post</a></li>
+            <li class='nav-item active'><a class='nav-link navbar-right' href="{% url 'blogpost_draft_list' %}">Drafts</a></li>
+            <li class='nav-item active'><a class='nav-link navbar-right mr-right' href="{% url 'logout' %}"><i class="fas fa-sign-out-alt fa-lg"></i></a></li>
+          </ul>
+
+        {% else %}
+        <!-- want this on the far right, maybe an icon? -->
+            <ul class='navbar-nav ml-md-auto'>
+        <li><a class='align-right' href="{% url 'login' %}" style="color:white;"><i class="fas fa-sign-in-alt fa-lg" style='color:white;'></i></a></li>
+
+      </ul>
+        {% endif %}
+
+      </div>
+    </nav>
+
+    <!-- make this look nicely formatted for blog with containers and whatnot -->
+    <div class="container mt-4">
+      <div class="jumbotron">
+      {% block content %}
+      {% endblock %}
+      </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+
+
+
+</html>

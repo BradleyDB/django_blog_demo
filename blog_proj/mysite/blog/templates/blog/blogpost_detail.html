@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<h1 class='posttitle'>{{ blogpost.title }}</h1>
+
+{% if blogpost.published_date %}
+  <div class="date postdate">
+  <p>Published On: {{ blogpost.published_date }} </p>
+  </div>
+  <br>
+
+{% else %}
+  <a class='save btn btn-primary' href="{% url 'blogpost_publish' pk=blogpost.pk %}">Publish</a>
+  <br>
+
+{% endif %}
+<p class='postcontent'>{{ blogpost.text|safe|linebreaksbr }}</p>
+
+{% if user.is_authenticated %}
+
+<h1 style='font-size:1.25em;'>Post Options: </h1>
+<a class="btn btn-warning" href="{% url 'post_update' pk=blogpost.pk %}"><i class="far fa-edit fa-lg"></i></a>
+<a class="btn btn-danger" href="{% url 'post_delete' pk=blogpost.pk %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+<br>
+
+{% endif %}
+
+<a class='save btn btn-primary my-3' href="{% url 'add_comment_to_post' pk=blogpost.pk %}">Add Comment</a>
+
+<div class="container m-4">
+  <h1>Comments:</h1>
+  {% for blogcomment in blogpost.comments.all %}
+  <div class="container position-relative bordershadow mt-3 p-2">
+
+    {% if user.is_authenticated or blogcomment.approved_comments %}
+      {{ blogcomment.created_date }}
+        {% if not blogcomment.approved_comments %}
+        <a class="btn btn-danger mx-2" href="{% url 'comment_remove' pk=blogcomment.pk %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+        <a class="btn btn-primary mx-2" href="{% url 'comment_approve' pk=blogcomment.pk %}">Approve</a>
+        {% endif %}
+
+        <p>{{ blogcomment.text|safe|linebreaksbr }}</p>
+        <p>Posted By: {{ blogcomment.author }}</p>
+        </div>
+    {% endif %}
+    {% empty %}
+    <p>No Comments</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
